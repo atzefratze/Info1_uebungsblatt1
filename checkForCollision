@@ -1,0 +1,65 @@
+#Aufgabe 0 - Kollisionserkennung und elastischer Stoß
+
+var width = canvas.width(); 
+var height = canvas.height();
+
+var platform = canvas.height()-20;
+
+var left1 = 20;
+var top1 = platform-25;
+var width1 = 25;
+var height1 = 25;
+
+var left2 = width-70;
+var top2 = platform-50;
+var width2 = 50;
+var height2 = 50;
+
+var speedR1 = 1;
+var speedR2 = -1;
+
+#Elastischer Stoß
+#var v1 = ((width1*height1)* speedR1 + 20*(2*speedR2-speedR1))/1+20;
+
+
+#Wenn x1 und x2 gleich sind, sollen sie sich in die andere Richtung bewegen.
+function checkForCollision(left1, left2, distance)
+{
+	if math.abs(left1 - left2) <= distance then
+	{
+		print("true");
+		speedR1 = -speedR1;
+		speedR2 = -speedR2;
+  }
+
+	else {
+		return false;
+	}
+}
+
+for var x in 0:1000 do
+{
+	canvas.setFillColor(1,1,1);
+	canvas.clear();
+	
+	#grüne PLattform	
+	canvas.setFillColor(0,1,0);
+	canvas.frameRect(0,platform,canvas.width(),canvas.height());
+	
+	#Rechteck 1 
+	canvas.setFillColor(1,0,0);
+	canvas.frameRect(left1, top1, width1, height1);
+	left1 += speedR1;	
+	
+	#Rechteck 2
+	canvas.frameRect(left2, top2, width2, height2);
+	left2 +=speedR2;
+	
+	#Kollision der Objekte
+	checkForCollision(left1, left2, 20);
+	
+	#Kollsion der Ränder
+	checkForCollision(left1,0,0);
+	
+	wait(10);	
+}
